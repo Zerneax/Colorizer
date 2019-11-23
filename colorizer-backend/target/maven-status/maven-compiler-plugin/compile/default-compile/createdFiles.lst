@@ -1,0 +1,6 @@
+process/ImageProcess.class
+resource/ImageResource.class
+model/DataImage.class
+model/DataImage$DataImageBuilder.class
+verticle/ColoriserVerticle.class
+Application.class
