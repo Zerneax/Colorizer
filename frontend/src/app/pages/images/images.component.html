@@ -1,0 +1,33 @@
+<div class="container">
+  <div class="columns main-div">
+    <div class="column col-8 col-mx-auto">
+
+      <div class="text-center">
+        <label class="btn btn-primary" for="upload-file">Import image...</label>
+        <input type="file" id="upload-file" (change)="importFile($event.target)" hidden>
+      </div>
+
+      <div class="columns m-2">
+        <div class="column col-6" id="div-image-src">
+          <img [src]="imageSrc" class="img-fit-cover img-responsive" alt="" *ngIf="imageSrc != undefined">
+        </div>
+        <div class="column col-6">
+          <img [src]="imageModified" class="img-responsive" alt="" *ngIf="imageModified != undefined">
+        </div>
+      </div>
+
+      <div class="columns text-center" id="div-actions" *ngIf="imageSrc != undefined">
+        <div class="column col-4">
+          <button type="button" class="btn btn-primary" name="button">Inverted</button>
+        </div>
+        <div class="column col-4">
+          <button type="button" class="btn btn-primary" name="button">Black and White</button>
+        </div>
+        <div class="column col-4">
+          <button type="button" class="btn btn-primary" name="button">Sepia</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
