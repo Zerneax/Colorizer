@@ -1,10 +1,11 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { ImagesComponent } from './pages/images/images.component';
 import { ImagesModule } from './pages/images/images.module';
+import { LoadingService } from './services/loading/loading.service';
 
 @NgModule({
   declarations: [
@@ -13,7 +14,8 @@ import { ImagesModule } from './pages/images/images.module';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    ImagesModule
+    ImagesModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -38,6 +38,7 @@ public class ImageResource {
     private void getInvertedImage(final RoutingContext routingContext){
         File fileInverted = null;
 
+        System.out.println("Number of file received : " + routingContext.fileUploads().size());
         if(routingContext.fileUploads().size() != 1 ) {
             final JsonObject error = new JsonObject();
             error.put("error", "The number of file must be 1.");
