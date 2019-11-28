@@ -16,6 +16,9 @@
     </option>
   </component>
   <component name="ProjectId" id="1U21vv7mCr2Z32H7ZhR1HcosRpb" />
+  <component name="PropertiesComponent">
+    <property name="settings.editor.selected.configurable" value="Lombok plugin" />
+  </component>
   <component name="RunDashboard">
     <option name="ruleStates">
       <list>

@@ -14,19 +14,26 @@
         </div>
         <div class="column col-6">
           <app-loading name="loading-process"></app-loading>
-          <img [src]="imageModified" class="img-responsive" alt="" *ngIf="imageModified != undefined">
+          <div class="div-image-modified" *ngIf="imageModified != undefined">
+            <img [src]="imageModified" class="img-responsive" alt="">
+            <i class="icon icon-download text-primary icon-download-position" (click)="downloadImageModified()"></i>
+          </div>
         </div>
       </div>
 
+
       <div class="columns text-center" id="div-actions" *ngIf="imageSrc != undefined">
-        <div class="column col-4">
+        <div class="column col-3">
           <button type="button" class="btn btn-primary" name="button" (click)="getImageInverted()">Inverted</button>
         </div>
-        <div class="column col-4">
-          <button type="button" class="btn btn-primary" name="button">Black and White</button>
+        <div class="column col-3">
+          <button type="button" class="btn btn-primary" name="button" (click)="getImageBlackAndWhite()">Black and White</button>
         </div>
-        <div class="column col-4">
-          <button type="button" class="btn btn-primary" name="button">Sepia</button>
+        <div class="column col-3">
+          <button type="button" class="btn btn-primary" name="button" (click)="getImageSepia()">Sepia</button>
+        </div>
+        <div class="column col-3">
+          <button type="button" class="btn btn-primary" name="button" (click)="getImageShake()">Shake</button>
         </div>
       </div>
 

@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { ImagesService } from 'src/app/services/images/images.service';
 import { LoadingComponent } from '../loading/loading.component';
 import { LoadingService } from 'src/app/services/loading/loading.service';
+import { FileSaverModule } from 'ngx-filesaver';
 
 @NgModule({
   declarations: [
@@ -11,7 +12,8 @@ import { LoadingService } from 'src/app/services/loading/loading.service';
     LoadingComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    FileSaverModule
   ],
   providers: [
     ImagesService,

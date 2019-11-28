@@ -32,6 +32,10 @@ public class ImageResource {
 
         subRouter.route("/sepia").handler(BodyHandler.create().setUploadsDirectory(FILE_LOCATION).setDeleteUploadedFilesOnEnd(true));
         subRouter.post("/sepia").handler(this::getSepia);
+
+        subRouter.route("/shake").handler(BodyHandler.create().setUploadsDirectory(FILE_LOCATION).setDeleteUploadedFilesOnEnd(true));
+        subRouter.post("/shake").handler(this::getShake);
+
         return subRouter;
     }
 
@@ -143,6 +147,46 @@ public class ImageResource {
 
             final JsonObject error = new JsonObject();
             error.put("error", "Enable to process your file.");
+
+            routingContext.response()
+                    .setStatusCode(500)
+                    .putHeader("content-type", "application/json")
+                    .end(Json.encode(error));
+        }finally {
+            if(fileInverted.exists())
+                fileInverted.delete();
+        }
+    }
+
+    private void getShake(final RoutingContext routingContext) {
+        File fileInverted = null;
+
+        if(routingContext.fileUploads().size() != 1 ) {
+            final JsonObject error = new JsonObject();
+            error.put("error", "The number of file must be 1.");
+
+            routingContext.response()
+                    .setStatusCode(400)
+                    .putHeader("content-type", "application/json")
+                    .end(Json.encode(error));
+        }
+
+        FileUpload fileUpload = routingContext.fileUploads().iterator().next();
+
+        try {
+            BufferedImage bufferedImage = this.imageProcess.openImage(new File(fileUpload.uploadedFileName()));
+            List<DataImage> dataImageList = this.imageProcess.getRGBOfImage(bufferedImage);
+            fileInverted = this.imageProcess.createNewShakeImage(dataImageList, bufferedImage, FILE_LOCATION + "/sepia" + this.getTimestamp() + ".png");
+
+            routingContext.response()
+                    .setStatusCode(200)
+                    .sendFile(fileInverted.getAbsolutePath())
+                    .end();
+        } catch (Exception e) {
+
+            final JsonObject error = new JsonObject();
+            error.put("error", "Enable to process your file.");
+            error.put("cause", e.getMessage());
 
             routingContext.response()
                     .setStatusCode(500)

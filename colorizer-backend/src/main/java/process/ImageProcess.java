@@ -9,6 +9,8 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class ImageProcess {
@@ -137,6 +139,46 @@ public class ImageProcess {
 
             newImage.setRGB(dataImage.getX(), dataImage.getY(), rgb);
         }
+
+        ImageIO.write(newImage, "png", f);
+
+        return f;
+    }
+
+    public File createNewShakeImage(List<DataImage> dataImageList, BufferedImage oldImage, String newFileName) throws IOException {
+        this.logger.info("Creating new shake image : " + newFileName);
+        File f = new File(newFileName);
+
+        int width = oldImage.getWidth();
+        int height = oldImage.getHeight();
+        System.out.println("X : " + width + " | Y : " + height);
+
+        BufferedImage newImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+        Collections.reverse(dataImageList);
+
+        System.out.println("X : " + dataImageList.get(0).getX() + " | Y : " + dataImageList.get(0).getY());
+        int nw = width - 1, nh = height - 1;
+        for(DataImage dataImage : dataImageList) {
+
+            int rgb = dataImage.getAlpha() << 24
+                    | dataImage.getRed() << 16
+                    | dataImage.getGreen() << 8
+                    | dataImage.getBlue();
+            //System.out.println("X : " + w + " | Y : " + h);
+            newImage.setRGB(nw - dataImage.getX(), nh - dataImage.getY(), rgb);
+           //nw ++;
+           //nh ++;
+
+        }
+        /*for(DataImage dataImage : dataImageList) {
+
+            int rgb = dataImage.getAlpha() << 24
+                    | dataImage.getRed() << 16
+                    | dataImage.getGreen() << 8
+                    | dataImage.getBlue();
+            System.out.println("X : " + dataImage.getX() + " | Y : " + dataImage.getY());
+            newImage.setRGB(dataImage.getX(), dataImage.getY(), rgb);
+        }*/
 
         ImageIO.write(newImage, "png", f);
 
